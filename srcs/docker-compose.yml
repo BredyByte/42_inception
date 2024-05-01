@@ -1,10 +1,10 @@
 version: '3.5'
 services:
   nginx:
-    image: nginx:v01
+    image: nginx
     container_name: mynginx
     volumes:
-      - '/home/$USER/data/nginx:/usr/share/nginx/'
+      - nginx_v:/usr/share/nginx/
     environment:
       - 'NGINX_HOST=$USER.42.fr'
       - 'NGINX_PORT=443'
@@ -13,9 +13,17 @@ services:
     hostname: dbredykh.42.fr
     networks:
       - webnet
-    restart: unless-stopped
+    restart: always
 
 networks:
   webnet:  
     driver: bridge
     external: true
+
+volumes:
+  nginx_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/$USER/data/nginx
+      o: bind

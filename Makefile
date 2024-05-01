@@ -14,7 +14,7 @@ RM = docker rm
 DOCKER_COMPOSE_FILE = $(SRCS)/docker-compose.yml
 
 NGINX_C_NAME = mynginx
-NGINX_I_NAME = nginx:v01
+NGINX_I_NAME = nginx
 NGINX_SRC = $(REQ_SRC)/nginx
 NGINX_BUILD_IMAGE = $(DOCKER_BUILD) -t $(NGINX_I_NAME) $(NGINX_SRC)
 
