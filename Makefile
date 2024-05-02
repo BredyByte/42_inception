@@ -13,29 +13,30 @@ DOCKER_BUILD = docker build
 RM = docker rm
 DOCKER_COMPOSE_FILE = $(SRCS)/docker-compose.yml
 
-NGINX_C_NAME = mynginx
 NGINX_I_NAME = nginx
-NGINX_SRC = $(REQ_SRC)/nginx
-NGINX_BUILD_IMAGE = $(DOCKER_BUILD) -t $(NGINX_I_NAME) $(NGINX_SRC)
+WP_I_NAME = wordpress
 
-BUILD_COMMAND = $(NGINX_BUILD_IMAGE)
+NETWORK_NAME = webnet
 
-.PHONY: all build up down fcrean 
-.SILENT: all up build down fclean 
 
-all: build up
+.PHONY: all up down fcrean network
+.SILENT: all up down fclean network
 
-build:
-	echo "$(MATCHING_COLOR)$(U_LINE)Images: Building$(RESET)" && \
-	$(BUILD_COMMAND) && \
-	echo "\n$(TOXIC_GREEN)$(U_LINE)🧪 Images: Created 🧪$(RESET) \n"; \
+all: up
 
-up:
-	echo "$(MATCHING_COLOR)$(U_LINE)Docker compose is running in deteched mode $(RESET)" && \
+network:
+	if ! docker network inspect $(NETWORK_NAME) >/dev/null 2>&1; then \
+        docker network create -d bridge $(NETWORK_NAME); \
+    fi
+
+up: network
+	echo "$(MATCHING_COLOR)$(U_LINE)Images: Building$(RESET)"
 	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d
+	echo "$(MATCHING_COLOR)$(U_LINE)Docker compose is running in deteched mode $(RESET)"
 
 down:
 	$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down
 
 fclean: down
 	$(RM)i $(NGINX_I_NAME)
+	$(RM)i $(WP_I_NAME)
