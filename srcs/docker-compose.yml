@@ -1,10 +1,5 @@
-version: '3.5'
 services:
   nginx:
-    build:
-      context: ./requirements/nginx
-      dockerfile: Dockerfile
-      target: nginx
     image: nginx
     container_name: mynginx
     restart: always
@@ -20,10 +15,6 @@ services:
       - webnet
 
   wordpress:
-    build:
-      context: ./requirements/wordpress
-      dockerfile: Dockerfile
-      target: wordpress
     image: wordpress
     container_name: mywordpress
     restart: always
