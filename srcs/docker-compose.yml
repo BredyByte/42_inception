@@ -1,10 +1,9 @@
 services:
   nginx:
-    image: nginx
+    build: ./requirements/nginx
     container_name: mynginx
     restart: always
     depends_on:
-      - db
       - wordpress
     volumes:
       - nginx_v:/var/www/
@@ -15,30 +14,22 @@ services:
       - webnet
 
   wordpress:
-    image: wordpress
+    build: ./requirements/wordpress
     container_name: mywordpress
     restart: always
-    ports:
-      - 9000:9000
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+    depends_on:
+      - db
     volumes:
       - nginx_v:/var/www/
     networks:
       - webnet
+    env_file:
+      - .env
 
   db:
     image: mariadb
     container_name: mymariadb
     restart: always
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_ROOT_PASSWORD: rootpass
     volumes:
       - db_v:/var/lib/mysql
     env_file:
