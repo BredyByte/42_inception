@@ -18,16 +18,20 @@ services:
     container_name: mywordpress
     restart: always
     depends_on:
-      - db
+      - mariadb
     volumes:
       - nginx_v:/var/www/
     networks:
       - webnet
-    env_file:
-      - .env
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
 
-  db:
-    image: mariadb
+
+  mariadb:
+    build: ./requirements/mariadb
     container_name: mymariadb
     restart: always
     volumes:
