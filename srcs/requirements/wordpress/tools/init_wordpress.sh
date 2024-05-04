@@ -25,7 +25,7 @@ chmod +x /usr/local/bin/wp
 wp core install \
     --allow-root \
     --url=$DOMAIN_NAME \
-    --title="HELLOGENTUZA123" \
+    --title="HELLOGENTUZA" \
     --admin_user=$MYSQL_USER \
     --admin_password=$MYSQL_PASSWORD \
     --admin_email='$MYSQL_USER@gmail.com' \
@@ -42,7 +42,10 @@ wp user create \
 wp core language install en_US
 wp site switch-language en_US
 
-wp media import /var/www/uploads/dume.webp --title="Dumb too(2) ;)"
+media_id=$(wp media import /var/www/uploads/inception.webp --title="Dumb too(2) ;)" --porcelain)
+
+wp post meta set 1 _thumbnail_id "$media_id"
+
 
 /usr/sbin/php-fpm82 -F
 
