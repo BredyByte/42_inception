@@ -2,7 +2,7 @@ FROM alpine:3.19
 
 RUN apk update && apk upgrade
 RUN apk add --update mysql mysql-client
-RUN apk add wget curl bash redis vim vim-doc vim-tutor php php-fpm php-mysqli php-cli php-pdo php-json php-curl php-mbstring php-xml php-gd php-opcache php-zlib php-redis
+RUN apk add su-exec wget curl bash redis vim vim-doc vim-tutor php php-fpm php-mysqli php-cli php-pdo php-json php-openssl php-phar php-curl php-mbstring php-xml php-gd php-opcache php-zlib php-redis
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x wp-cli.phar \

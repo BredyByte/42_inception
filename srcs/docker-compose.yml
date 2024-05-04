@@ -23,11 +23,8 @@ services:
       - nginx_v:/var/www/
     networks:
       - webnet
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: exampleuser
-      WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb
+    env_file:
+      - .env
 
 
   mariadb:
