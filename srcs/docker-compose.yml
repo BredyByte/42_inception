@@ -1,4 +1,13 @@
 services:
+  react:
+    build: ./requirements/bonus/react
+    container_name: myreact
+    restart: always
+    volumes:
+      - react_v:/app
+    ports:
+      - 7070:3000
+
   nginx:
     build: ./requirements/nginx
     container_name: mynginx
@@ -54,4 +63,10 @@ volumes:
     driver_opts:
       type: none
       device: /home/dbredykh/data/nginx
+      o: bind
+  react_v:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/dbredykh/data/react
       o: bind

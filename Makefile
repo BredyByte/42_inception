@@ -14,6 +14,7 @@ DOCKER_COMPOSE_FILE = $(SRCS)/docker-compose.yml
 NGINX_I_NAME = srcs-nginx
 WP_I_NAME = srcs-wordpress
 MD_I_NAME = srcs-mariadb
+REACT_I_NAME = srcs-react
 
 NETWORK_NAME = webnet
 
@@ -38,5 +39,6 @@ fclean: down
 	-$(RM)i $(NGINX_I_NAME)
 	-$(RM)i $(WP_I_NAME)
 	-$(RM)i $(MD_I_NAME)
+	-$(RM)i $(REACT_I_NAME)
 
 re: fclean all
