@@ -11,9 +11,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN mkdir -p /run/php
 RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/uploads
 
 COPY ./tools/init_wordpress.sh /usr/local/bin/
 COPY ./conf/www.conf /etc/php82/php-fpm.d/
+COPY ./tools/inception.webp /var/www/uploads/
 
 WORKDIR /var/www/html
 

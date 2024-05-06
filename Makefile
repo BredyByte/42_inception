@@ -18,8 +18,8 @@ REACT_I_NAME = srcs-react
 
 NETWORK_NAME = webnet
 
-.PHONY: all build up down fcrean network re
-.SILENT: all build up down fclean network re
+.PHONY: all volumes up down fcrean network re stop
+.SILENT: all volumes up down fclean network re stop
 
 all: up
 
@@ -28,9 +28,18 @@ network:
         docker network create -d bridge $(NETWORK_NAME); \
     fi
 
-up: network
+volumes:
+	mkdir -p /home/$(USER)/data
+	mkdir -p /home/$(USER)/data/nginx
+	mkdir -p /home/$(USER)/data/maria
+	mkdir -p /home/$(USER)/data/react
+
+up: volumes network
 	docker compose -f $(DOCKER_COMPOSE_FILE) up -d
 	echo "$(MATCHING_COLOR)$(U_LINE)Docker compose is running in deteched mode $(RESET) \n"
+
+stop:
+	docker compose -f $(DOCKER_COMPOSE_FILE) stop
 
 down:
 	docker compose -f $(DOCKER_COMPOSE_FILE) down
@@ -40,5 +49,7 @@ fclean: down
 	-$(RM)i $(WP_I_NAME)
 	-$(RM)i $(MD_I_NAME)
 	-$(RM)i $(REACT_I_NAME)
+	-docker network rm $(NETWORK_NAME)
+	sudo rm -rf /home/$(USER)/data
 
 re: fclean all
