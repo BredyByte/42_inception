@@ -16,6 +16,7 @@ WP_I_NAME = srcs-wordpress
 MD_I_NAME = srcs-mariadb
 REACT_I_NAME = srcs-react
 ADMIN_I_NAME = srcs-adminer
+REDIS_I_NAME = srcs-redis
 
 NETWORK_NAME = webnet
 
@@ -51,6 +52,7 @@ fclean: down
 	-$(RM)i $(MD_I_NAME)
 	-$(RM)i $(REACT_I_NAME)
 	-$(RM)i $(ADMIN_I_NAME)
+	-$(RM)i $(REDIS_I_NAME)
 	-docker network rm $(NETWORK_NAME)
 	sudo rm -rf /home/$(USER)/data
 

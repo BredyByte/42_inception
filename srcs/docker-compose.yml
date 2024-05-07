@@ -1,4 +1,13 @@
 services:
+  redis:
+    build: ./requirements/bonus/redis
+    container_name: myredis
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - webnet
+
   adminer:
     build: ./requirements/bonus/adminer
     container_name: myadminer
