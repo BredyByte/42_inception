@@ -1,4 +1,16 @@
 services:
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: myadminer
+    restart: always
+    depends_on:
+      - mariadb
+      - wordpress
+    ports:
+      - 8080:8080
+    networks:
+      - webnet
+
   react:
     build: ./requirements/bonus/react
     container_name: myreact
