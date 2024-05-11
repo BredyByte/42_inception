@@ -33,6 +33,29 @@ The project subject revolves around mastering the following key objectives:
   </ul>
 </details>
 
+- <details>
+  <summary> <b>Bonus Part</b>: </summary>
+  <ul>
+    <li>
+      Set up <b> redis cache </b>for your WordPress website in order to properly manage the cache. - ✅
+    </li>
+    <li>
+      Set up a <b>FTP server</b> container pointing to the volume of your WordPress website. - ❌
+    </li>
+    <li>
+      Create a simple <b>static website</b> in the language of your choice except
+      PHP (Yes, PHP is excluded!). For example, a showcase site or a site for presenting your resume. - ✅
+    </li>
+    <li>
+      Set up <b>Adminer</b>. Adminer is a database management tool that allows you to manage your databases easily. - ✅
+    </li>
+    <li>
+      Set up a service of your choice that you think is useful. During the
+      defense, you will have to justify your choice. - ❌
+    </li>
+  </ul>
+</details>
+
 ## 🦮 Guidelines:
 
 ### Crete shared folder for your virtualBox
@@ -94,23 +117,46 @@ sudo chmod 777 /etc/hosts
 ```
 
 ### Check redis is mounted properly
-- to check if redis is working properly execute the following command:
+- to check if redis is working properly execute the following command. If it returns PONG then everything is working properly:
   ```bash
   redis-cli ping
   ```
-  If it returns PONG then everything is working properly.
-  Other way to check it with the following command:
+
+  Other way to check it with the following command, should indicate that port 6379 is open:
   ```bash
   sudo apt-get update
   sudo apt-get upgrade
   sudo apt-get install net-tools
   netstat -tuln | grep 6379
   ```
-  Other way to check it with the following command:
+  Other way to check it with the following command, should return "HOLA PAYASOS!!"
   ```bash
   > redis-cli
   > SET some "HOLA PAYASOS!!"
   > GET some
   ```
-  should return "HOLA PAYASOS!!"
+
+## 🙋 Usage:
+
+### Building:
+1. Clone the repository:
+2. Navigate to the project directory:
+3. Run: ```make``` to complie the project. This command will:
+* Create a network "webnet".
+* Volumes: "nginx", "maria", "react" in /home/$USER/data folder.
+* Build the Docker images for Nginx, WordPress, MariaDB, Redis, Adminer, and Static Website.
+* Create and run the Docker containers for the services.
+
+### Commands:
+1. Run: ```make stop``` to stop the services.
+2. Run: ```make down``` to stop and remove the containers.
+3. Run: ```make fclean``` to stop, remove the containers, remove the images, remove the volumes, and remove the network.
+4. Run: ```make re``` to re-run the project. Is like running ```make fclean``` and then ```make```.
+5. Run ```docker system prune --force --all``` to delete all the images, containers, and cache of docker.
+
+### Ports:
+- **443: HTTPS** is open for the domain $USER.42.fr - and shows the WordPress website. Wp-admin is also accessible with the dbredykh login and dbredykhpass password. The additional user is payaso with the payasopass password.
+- **7070: HTTP** is open for one of the additional services. The service is a static website that shows the resume of the author.
+- **8080: HTTP** is open for the Adminer service. The service is accessible with the dbredykh login, dbredykhpass password, database name is wordpress and the hostname is mymariadb.
+- **6379: TCP** is open for the Redis service.
 
