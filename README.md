@@ -58,6 +58,17 @@ The project subject revolves around mastering the following key objectives:
 
 ## 🦮 Guidelines:
 
+### PID 1 problem:
+- The PID 1 problem is a common issue when running Docker containers. The PID 1 problem occurs when the main process inside a container is not the first process started by the container. This can cause issues with signal handling, zombie processes, and other system behaviors.
+- To address the PID 1 problem, it is recommended to use a process manager like dumb-init or tini to ensure that the main process inside the container is properly managed and behaves like a normal PID 1 process.
+- Here you have some useful links to understand the PID 1 problem and how to solve it:
+  - [Tini](https://github.com/krallin/tini)
+  - [Advantages of Tini](https://github.com/krallin/tini/issues/8)
+  - [Linux Daemons, Zombis and Orphans](https://itsfoss.com/linux-daemons/)
+  - [Docker and the PID 1 problem](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/)
+  - [Baseimage-docker](https://phusion.github.io/baseimage-docker/)
+  - [Baseimage-docker, fat containers and "treating containers as VMs](https://blog.phusion.nl/2015/01/20/baseimage-docker-fat-containers-treating-containers-vms/)
+
 ### Crete shared folder for your virtualBox
 1.  Execute the following command inside your virtual machine:
 ```bash
