@@ -14,7 +14,6 @@ services:
     restart: always
     depends_on:
       - mariadb
-      - wordpress
     ports:
       - 8080:8080
     networks:
@@ -39,7 +38,7 @@ services:
       - nginx_v:/var/www/
     ports:
       - 443:443
-    hostname: dbredykh.42.fr
+    hostname: ${USER}.42.fr
     networks:
       - webnet
 
@@ -76,17 +75,17 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/dbredykh/data/maria
+      device: /home/${USER}/data/maria
       o: bind
   nginx_v:
     driver: local
     driver_opts:
       type: none
-      device: /home/dbredykh/data/nginx
+      device: /home/${USER}/data/nginx
       o: bind
   react_v:
     driver: local
     driver_opts:
       type: none
-      device: /home/dbredykh/data/react
+      device: /home/${USER}/data/react
       o: bind

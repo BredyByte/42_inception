@@ -18,17 +18,10 @@ REACT_I_NAME = srcs-react
 ADMIN_I_NAME = srcs-adminer
 REDIS_I_NAME = srcs-redis
 
-NETWORK_NAME = webnet
-
-.PHONY: all volumes up down fcrean network re stop
-.SILENT: all volumes up down fclean network re stop
+.PHONY: all volumes up down fcrean re stop
+.SILENT: all volumes up down fclean re stop
 
 all: up
-
-network:
-	if ! docker network inspect $(NETWORK_NAME) >/dev/null 2>&1; then \
-        docker network create -d bridge $(NETWORK_NAME); \
-    fi
 
 volumes:
 	mkdir -p /home/$(USER)/data
@@ -36,7 +29,7 @@ volumes:
 	mkdir -p /home/$(USER)/data/maria
 	mkdir -p /home/$(USER)/data/react
 
-up: volumes network
+up: volumes
 	docker compose -f $(DOCKER_COMPOSE_FILE) up -d
 	echo "$(MATCHING_COLOR)$(U_LINE)Docker compose is running in deteched mode $(RESET) \n"
 
@@ -53,7 +46,6 @@ fclean: down
 	-$(RM)i $(REACT_I_NAME)
 	-$(RM)i $(ADMIN_I_NAME)
 	-$(RM)i $(REDIS_I_NAME)
-	-docker network rm $(NETWORK_NAME)
 	sudo rm -rf /home/$(USER)/data
 
 re: fclean all

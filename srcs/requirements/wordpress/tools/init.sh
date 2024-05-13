@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 wget http://wordpress.org/latest.tar.gz
 tar xfz latest.tar.gz
