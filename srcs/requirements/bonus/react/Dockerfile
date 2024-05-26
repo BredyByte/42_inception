@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update -y && apt-get upgrade -y \
-	&& apt-get install tini curl vim git -y
+	&& apt-get install tini curl git -y
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 

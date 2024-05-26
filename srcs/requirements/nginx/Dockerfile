@@ -1,7 +1,7 @@
 FROM alpine:3.18
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache tini nginx vim vim-doc vim-tutor openssl bash
+    apk add --no-cache tini nginx openssl bash
 
 RUN mkdir /etc/nginx/cerf
 

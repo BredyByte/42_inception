@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update -y && apt-get upgrade -y \
-	&& apt-get install tini curl vim redis -y
+	&& apt-get install tini redis -y
 
 COPY ./tools/script.sh /
 
